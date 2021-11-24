@@ -40,6 +40,3 @@ dkmap(dkmodel$complex, dne, legend.type = "log", col = "dne")
 
 \doi{10.1007/s10914-016-9326-0}{Pampush et al. (2016)}
 }
-\seealso{
-\code{\link[molaR]{DNE}}
-}

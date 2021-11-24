@@ -180,7 +180,6 @@ area2d <- function(mesh, method = "concave"){
 #' products of polygon normal energies * polygon areas.
 #' @references \doi{10.1002/ajpa.21489}{Bunn et al. (2011)}
 #' @references \doi{10.1007/s10914-016-9326-0}{Pampush et al. (2016)}
-#' @seealso \code{\link[molaR]{DNE}}
 #' @examples
 #' dne <- dne(dkmodel$complex)
 #' summary(dkmodel$complex)
@@ -464,7 +463,6 @@ opc <- function(mesh, bins = 8, min.size = 3, rotation = 0){
 #' @references \doi{10.1038/nature10880}{Wilson et al. (2012)}
 #' @seealso \code{\link{opc}}
 #' @seealso \code{\link{orient}}
-#' @seealso \code{\link[molaR]{OPCr}}
 #' @examples
 #' #8bins (default):
 #' opcr <- opcr(dkmodel$complex)
@@ -530,7 +528,6 @@ orient <- function(mesh){
 #' \doi{10.1371/journal.pone.0066142}{Guy et al. (2013)}
 #' \href{https://palaeo-electronica.org/2000_1/gorilla/issue1_00.htm}{Ungar and Williamson (2000)}
 #' @seealso \code{\link{area2d}}
-#' @seealso \code{\link[molaR]{RFI}}
 #' @examples
 #' rfi <- rfi(dkmodel$cusp, method = "Ungar")
 #' lrfi <- rfi(dkmodel$cusp, method = "Boyer")
@@ -551,7 +548,7 @@ rfi <- function(mesh, method = "Ungar", hull = "concave"){
     RFI <- log(sqrt(Surf3D)/sqrt(Surf2D))
   }
   if (method == "Guy"){
-    Dataset <- data.frame(Area = Rvcg::vcgArea(mesh), Elevation = doolkit::elev(mesh), Slope = doolkit::slope(mesh))
+    Dataset <- data.frame(Area = Rvcg::vcgArea(mesh, perface = TRUE)$pertriangle, Elevation = doolkit::elev(mesh), Slope = doolkit::slope(mesh))
     RFI <- (sum(Dataset$Area[Dataset$Slope<45])*mean(Dataset$Elevation[Dataset$Slope<45])) / (sum(Dataset$Area[Dataset$Slope>45])*mean(Dataset$Elevation[Dataset$Slope>45]))
   }
   return(RFI)

@@ -349,17 +349,17 @@ dkmap <- function(mesh, y,  alpha = 1, alpha.above = TRUE, alpha.faces = NULL, a
 #' @references \doi{10.3389/fphys.2017.00524}{Thiery et al. (2017)}
 #' @examples
 #' #Elevation (hypsometric) profile (see Thiery et al., 2017):
-#' dkprofile(elev(dkpongo$OES), main = "Elevation profile - Pongo pygmaeus",
+#' dkprofile(elev(dkmodel$cusp), main = "Elevation profile",
 #' ylab = "Elevation (%)", col = "#0072B2", linetype = "solid")
 #'
 #' #Enamel-dentine distance (pachymetric) profile:
-#' dkprofile(oedist(dkpongo$OES, dkpongo$EDJ),
-#' main = "Elevation profile - Pongo pygmaeus", ylab = "Distance (%)",
+#' dkprofile(oedist(dkmodel$cusp, dkmodel$basin),
+#' main = "Enamel-dentine distance profile", ylab = "Distance (%)",
 #' col = "#F0E442", linetype = "dashed")
 #'
 #' #Curvature (kurtometric) profile:
-#' dkprofile(Rvcg::vcgCurve(dkpongo$OES)$meanitmax,
-#' main = "Curvature profile - Pongo pygmaeus", ylab = "Curvature (%)",
+#' dkprofile(arc(dkmodel$cusp),
+#' main = "Curvature profile", ylab = "Curvature (%)",
 #' col = "#D55E00", linetype = "dotted")
 #'
 #' @export

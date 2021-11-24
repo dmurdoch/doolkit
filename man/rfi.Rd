@@ -33,6 +33,4 @@ gamma <- rfi(dkmodel$cusp, method = "Guy")
 }
 \seealso{
 \code{\link{area2d}}
-
-\code{\link[molaR]{RFI}}
 }

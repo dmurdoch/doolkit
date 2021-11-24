@@ -33,6 +33,4 @@ opcr <- opcr(dkmodel$complex, bins = 16)
 \code{\link{opc}}
 
 \code{\link{orient}}
-
-\code{\link[molaR]{OPCr}}
 }

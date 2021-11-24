@@ -1,5 +1,7 @@
 # Package dependencies:
 #' @importFrom methods new
+#' @importFrom usethis use_data
+ #' @importFrom usethis use_package
 usethis::use_package("concaveman", type = "Imports")
 usethis::use_package("ggplot2", type = "Imports")
 usethis::use_package("igraph", type = "Imports")
