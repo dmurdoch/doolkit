@@ -31,7 +31,7 @@
 #' @export
 angularity <- function(mesh, ratio = FALSE){
   # Perform various checks:
-  if (class(mesh) != "mesh3d") stop("mesh must be an object of class 'mesh3d'")
+  if (!isa(x = mesh, what = "mesh3d")) stop("mesh must be an object of class 'mesh3d'")
   if (is.null(mesh$normals)) mesh$normals <- Rvcg::vcgUpdateNormals(mesh, silent = TRUE)
   # Main job
   # ...Get slope (or ratio) of the mesh
@@ -86,7 +86,8 @@ angularity <- function(mesh, ratio = FALSE){
 #' @export
 arc <- function (mesh, range = c(0.01, 0.99)){
   # Perform various checks:
-  if (class(mesh) != "mesh3d") stop("mesh must be an object of class 'mesh3d'")
+  if (!isa(x = mesh, what = "mesh3d")) stop("mesh must be an object of class 'mesh3d'")
+  if (is.null(mesh$normals)) mesh$normals <- Rvcg::vcgUpdateNormals(mesh, silent = TRUE)
   # Main job
   # ...Get mean curvature
   Curv <- Rvcg::vcgCurve(mesh)$meanitmax
@@ -140,7 +141,7 @@ arc <- function (mesh, range = c(0.01, 0.99)){
 #' @export
 area2d <- function(mesh, method = "concave"){
   # Perform various checks:
-  if (class(mesh) != "mesh3d") stop("mesh must be an object of class 'mesh3d'")
+  if (!isa(x = mesh, what = "mesh3d")) stop("mesh must be an object of class 'mesh3d'")
   # Main job
   # ...Get the (x,y) coordinates of all the vertices
   FootprintVerts <- t(mesh$vb[1:2, ])
@@ -194,7 +195,7 @@ area2d <- function(mesh, method = "concave"){
 #' @export
 dne <- function(mesh, range = 0.999, total = FALSE){
   # Perform various checks:
-  if (class(mesh) != "mesh3d") stop("mesh must be an object of class 'mesh3d'")
+  if (!isa(x = mesh, what = "mesh3d")) stop("mesh must be an object of class 'mesh3d'")
   if (is.null(mesh$normals)) mesh <- Rvcg::vcgUpdateNormals(mesh, silent = TRUE)
   # Main job
   Dne <- NULL
@@ -247,7 +248,7 @@ dne <- function(mesh, range = 0.999, total = FALSE){
 #' @export
 elev <- function(mesh, origin = TRUE){
   # Perform various checks:
-  if (class(mesh) != "mesh3d") stop("mesh must be an object of class 'mesh3d'")
+  if (!isa(x = mesh, what = "mesh3d")) stop("mesh must be an object of class 'mesh3d'")
   # Main job
   # ...Set back origin to 0 if origin is TRUE:
   if (origin) {
@@ -275,7 +276,7 @@ elev <- function(mesh, origin = TRUE){
 #' @export
 hypso <- function(mesh, origin = TRUE){
   # Perform various checks:
-  if (class(mesh) != "mesh3d") stop("mesh must be an object of class 'mesh3d'")
+  if (!isa(x = mesh, what = "mesh3d")) stop("mesh must be an object of class 'mesh3d'")
 
   # Main job
   # ...Set back origin to 0
@@ -316,7 +317,7 @@ hypso <- function(mesh, origin = TRUE){
 #' @export
 inclin <- function(mesh){
   # Perform various checks:
-  if (class(mesh) != "mesh3d") stop("mesh must be an object of class 'mesh3d'")
+  if (!isa(x = mesh, what = "mesh3d")) stop("mesh must be an object of class 'mesh3d'")
 
   # Main job
   # ...Get normals
@@ -367,8 +368,8 @@ inclin <- function(mesh){
 #' @export
 oedist <- function(oes, edj, ray = FALSE){
   # Perform various checks:
-  if (class(oes) != "mesh3d") stop("oes must be an object of class 'mesh3d'")
-  if (class(edj) != "mesh3d") stop("edj must be an object of class 'mesh3d'")
+  if (!isa(x = oes, what = "mesh3d")) stop("oes must be an object of class 'mesh3d'")
+  if (!isa(x = edj, what = "mesh3d")) stop("edj must be an object of class 'mesh3d'")
   # Main job
   # ...Compute absolute shortest distances FROM vertex TO second mesh
   VertDist <- abs(Morpho::meshDist(oes, edj, distvec = NULL, sign = FALSE, plot = FALSE, ray = ray)$dists)
@@ -407,7 +408,7 @@ oedist <- function(oes, edj, ray = FALSE){
 #' @export
 opc <- function(mesh, bins = 8, min.size = 3, rotation = 0){
   # Perform various checks:
-  if (class(mesh) != "mesh3d") stop("mesh must be an object of class 'mesh3d'")
+  if (!isa(x = mesh, what = "mesh3d")) stop("mesh must be an object of class 'mesh3d'")
   # Main job
   # ...A function to count patches:
   patchcount <- function(mesh, bins, min.size, rotation) {
@@ -466,12 +467,14 @@ opc <- function(mesh, bins = 8, min.size = 3, rotation = 0){
 #' @examples
 #' #8bins (default):
 #' opcr <- opcr(dkmodel$complex)
-#' #16 bins (computation time increase exponentially):
-#' opcr <- opcr(dkmodel$complex, bins = 16)
+#' #less bins:
+#' opcr <- opcr(dkmodel$complex, bins = 4)
+#' #larger patches:
+#' opcr <- opcr(dkmodel$complex, min.size = 50)
 #' @export
 opcr <- function(mesh, bins = 8, min.size = 3){
   # Perform various checks:
-  if (class(mesh) != "mesh3d") stop("mesh must be an object of class 'mesh3d'")
+  if (!isa(x = mesh, what = "mesh3d")) stop("mesh must be an object of class 'mesh3d'")
   # Main job
   Opcr <- list(opcr = 0, rotations = data.frame(Rotation = 0, Opc = 0))
   for (j in (1:bins)) {
@@ -503,7 +506,7 @@ opcr <- function(mesh, bins = 8, min.size = 3){
 #' @export
 orient <- function(mesh){
   # Perform various checks:
-  if (class(mesh) != "mesh3d") stop("mesh must be an object of class 'mesh3d'")
+  if (!isa(x = mesh, what = "mesh3d")) stop("mesh must be an object of class 'mesh3d'")
   # Main job
   # ...Get face normals
   Normals <- Morpho::facenormals(mesh)$normals
@@ -530,12 +533,11 @@ orient <- function(mesh){
 #' @seealso \code{\link{area2d}}
 #' @examples
 #' rfi <- rfi(dkmodel$cusp, method = "Ungar")
-#' lrfi <- rfi(dkmodel$cusp, method = "Boyer")
 #' gamma <- rfi(dkmodel$cusp, method = "Guy")
 #' @export
 rfi <- function(mesh, method = "Ungar", hull = "concave"){
   # Perform various checks:
-  if (class(mesh) != "mesh3d") stop("mesh must be an object of class 'mesh3d'")
+  if (!isa(x = mesh, what = "mesh3d")) stop("mesh must be an object of class 'mesh3d'")
   # Main job
   if (method == "Ungar"){
     Surf3D <- Rvcg::vcgArea(mesh)
@@ -548,7 +550,7 @@ rfi <- function(mesh, method = "Ungar", hull = "concave"){
     RFI <- log(sqrt(Surf3D)/sqrt(Surf2D))
   }
   if (method == "Guy"){
-    Dataset <- data.frame(Area = Rvcg::vcgArea(mesh, perface = TRUE)$pertriangle, Elevation = doolkit::elev(mesh), Slope = doolkit::slope(mesh))
+    Dataset <- data.frame(Area = Rvcg::vcgArea(mesh), Elevation = doolkit::elev(mesh), Slope = doolkit::slope(mesh))
     RFI <- (sum(Dataset$Area[Dataset$Slope<45])*mean(Dataset$Elevation[Dataset$Slope<45])) / (sum(Dataset$Area[Dataset$Slope>45])*mean(Dataset$Elevation[Dataset$Slope>45]))
   }
   return(RFI)
@@ -575,8 +577,8 @@ rfi <- function(mesh, method = "Ungar", hull = "concave"){
 #' @export
 rrate <- function(uncropped, cropped, origin = TRUE){
   # Perform various checks:
-  if (class(uncropped) != "mesh3d") stop("uncropped must be an object of class 'mesh3d'")
-  if (class(cropped) != "mesh3d") stop("cropped must be an object of class 'mesh3d'")
+  if (!isa(x = uncropped, what = "mesh3d")) stop("uncropped must be an object of class 'mesh3d'")
+  if (!isa(x = cropped, what = "mesh3d")) stop("cropped must be an object of class 'mesh3d'")
   # Main job
   # ...Set back origin to 0
   if (origin) {
@@ -620,7 +622,7 @@ rrate <- function(uncropped, cropped, origin = TRUE){
 #' @export
 shape.index <- function(mesh, origin = TRUE) {
   # Perform various checks:
-  if (class(mesh) != "mesh3d") stop("mesh must be an object of class 'mesh3d'")
+  if (!isa(x = mesh, what = "mesh3d")) stop("mesh must be an object of class 'mesh3d'")
   # Main job
   # ...Set back origin to 0
   if (origin) {
@@ -655,7 +657,7 @@ shape.index <- function(mesh, origin = TRUE) {
 #' @export
 slope <- function(mesh) {
   # Perform various checks:
-  if (class(mesh) != "mesh3d") stop("mesh must be an object of class 'mesh3d'")
+  if (!isa(x = mesh, what = "mesh3d")) stop("mesh must be an object of class 'mesh3d'")
   # Main job
   # ...Get surface normals
   Normals <- Morpho::facenormals(mesh)$normals

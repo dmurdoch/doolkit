@@ -23,7 +23,6 @@ Compute the relief index of a  3d triangle mesh.
 }
 \examples{
 rfi <- rfi(dkmodel$cusp, method = "Ungar")
-lrfi <- rfi(dkmodel$cusp, method = "Boyer")
 gamma <- rfi(dkmodel$cusp, method = "Guy")
 }
 \references{

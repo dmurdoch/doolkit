@@ -23,8 +23,10 @@ Compute the orientation patch count rotated of a triangle mesh.
 \examples{
 #8bins (default):
 opcr <- opcr(dkmodel$complex)
-#16 bins (computation time increase exponentially):
-opcr <- opcr(dkmodel$complex, bins = 16)
+#less bins:
+opcr <- opcr(dkmodel$complex, bins = 4)
+#larger patches:
+opcr <- opcr(dkmodel$complex, min.size = 50)
 }
 \references{
 \doi{10.1038/nature10880}{Wilson et al. (2012)}
