@@ -237,7 +237,7 @@ dkmap <- function(mesh, y,  alpha = 1, alpha.above = TRUE, alpha.faces = NULL, a
 
   if (lit) {
     # Light: 3 points lightning (https://fr.wikipedia.org/wiki/%C3%89clairage_trois_points)
-    rgl::rgl.clear("lights") #sets the lights off
+    rgl::clear3d("lights") #sets the lights off
     ##key light
     rgl::light3d(specular = "black", diffuse = "grey50", ambient = "grey50", theta = 330, phi = 330)
     ##fill light
